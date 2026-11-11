@@ -44,8 +44,7 @@ select,input[type=date]{width:100%;padding:10px;border-radius:4px;border:1px sol
 .gopt ul{margin:4px 0 0;padding-left:18px}
 .gv{border-radius:6px;padding:10px 12px;margin-top:12px;font-weight:600}
 @media(max-width:720px){.gopts{grid-template-columns:1fr}}
-.dlbar{gap:8px;margin-top:14px;align-items:center;flex-wrap:wrap}.dlbar.on{display:flex}
-#dlpdf{margin-right:14px;}
+.dlbar{display:flex;gap:8px;margin-top:14px;align-items:center;flex-wrap:wrap}
 .kv{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:6px 16px;margin-bottom:14px}.kv b{color:var(--muted);font-weight:600}
 #callpage h2{font-size:1.6rem;margin:4px 0 2px}#callpage h3{color:var(--accent);margin:0 0 8px;font-size:1.05rem}#callpage .panel{margin-top:16px}#callpage ul{margin:0;padding-left:20px}#callpage li{margin:6px 0}
 @media(max-width:720px){.kv{grid-template-columns:1fr}}
@@ -355,7 +354,8 @@ function renderGn(){
  else v=["Ready: no weaknesses flagged.","#1f9e89"];
  GV=v[0];const opt=(i,lv,name,body)=>`<label class="gopt ${lv}${gnGet(i)===lv?" on":""}"><input type="radio" name="gn${i}" data-gn="${i}" value="${lv}"${gnGet(i)===lv?" checked":""}><b>${name}</b>${body}</label>`;
  const ul=a=>"<ul>"+a.map(x=>"<li>"+x+"</li>").join("")+"</ul>";
- $("gnp").innerHTML=`<div class="olh"><b>Step 0 · Readiness check before month 6</b><span class="note">Decide by ${fmt(d6)}${late?" (already passed)":""}</span></div>`
+ $("gnp").innerHTML=`<div class="olh"><b>Step 0 · Readiness check before month 6</b><span class="note">Decide by ${fmt(d6)}${late?" (already passed)":""}</span></div>
+ <div class="note">Based on the Proposal Continuation Decision Framework of Tampere University Research and Innovation Services (Preaward team). It works for coordinators and partners; partners should rate criterion 3 for the coordinator. If several criteria show critical weaknesses and cannot be fixed within the time and resources you have, consider stopping.</div>`
  +GNC.map((c,i)=>`<div class="gc"><h3>${c.t}</h3><div class="gopts">${opt(i,"r","Critical weakness",ul(c.r))}${opt(i,"y","Fixable gap","<div>"+c.y+"</div>")}${opt(i,"g","Strong",ul(c.g))}</div></div>`).join("")
  +`<div class="gv" style="border-left:4px solid ${v[1]};background:var(--bg)">${v[0]}</div>`;
 }
@@ -382,7 +382,7 @@ const spM=b=>b<=3?2:b<=7?1:0.5;
 function spFor(m){
  const wk=k=>{const x=new Date(D);x.setDate(x.getDate()-(13-k)*7);return x},we=k=>k===13?new Date(D):new Date(+wk(k)+6*864e5);
  return SP.filter(t=>spM(t[1])===m).map(t=>`<b>${t[0]===t[1]?"Week "+t[0]:"Weeks "+t[0]+"–"+t[1]}</b> (${t[0]===13&&t[1]===13?fmt(D):fmt(wk(t[0]))+" to "+fmt(we(t[1]))}): ${t[2]}.`)}
-let KEYS=[],GV="",DL=null;
+let KEYS=[],GV="",DL=null,DLP=Promise.resolve(null);
 const plain=h=>String(h).replace(/<a href="([^"]+)"[^>]*>(.*?)<\/a>/g,"$2 ($1)").replace(/<\/(div|li|p|label)>/g,"\n").replace(/<br>/g,"\n").replace(/<[^>]+>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/[ \t]+\n/g,"\n").trim();
 function planData(){
  const dates=MS.map(x=>minus(D,x.m));
@@ -451,16 +451,17 @@ function toDOCX(){
  z.file("_rels/.rels",X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
  z.file("word/document.xml",X+'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+docxBody(docBlocks())+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>');
  return z.generateAsync({type:"blob"})}
+function saveLocal(name,data){const b=data instanceof Blob?data:new Blob([data],{type:"application/pdf"}),u=URL.createObjectURL(b),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(u);a.remove()},1000)}
 async function dlSave(kind){
  const msg=$("dlmsg");msg.textContent="";
- if(!DL)return;
+ await DLP;
  if(!D){msg.textContent="Pick a deadline first.";return}
  const slug=(cur.l||"custom").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,50);
  try{
   let data;
   if(kind==="pdf"){if(!window.jspdf){msg.textContent="The PDF tool did not load. Reload the page and try again.";return}data=toPDF()}
   else{if(!window.JSZip){msg.textContent="The Word tool did not load. Reload the page and try again.";return}data=await toDOCX()}
-  await DL.save({filename:"horizon-plan-"+slug+(kind==="pdf"?".pdf":".docx"),data});msg.textContent="Saved."
+  const name="horizon-plan-"+slug+(kind==="pdf"?".pdf":".docx");if(DL){await DL.save({filename:name,data});msg.textContent="Saved."}else{saveLocal(name,data);msg.textContent="Download started. If nothing happens, this view blocks downloads: open the page in Claude or in a normal browser tab."}
  }catch(e){msg.textContent=e&&e.code?(e.code==="declined"?"":"The file could not be saved here ("+e.code+")."):"The file could not be created."}
 }
 function indexPage(){
@@ -596,7 +597,7 @@ $("gnp").onchange=e=>{const i=e.target.dataset.gn;if(i!==undefined){(GD[callId]=
 
 $("ol").onclick=e=>{const g=e.target.dataset.go;if(g!==undefined){sel=+g;render()}};
 $("dlpdf").onclick=()=>dlSave("pdf");$("dldoc").onclick=()=>dlSave("docx");
-try{(window.claude?claude.use("downloads"):Promise.resolve(null)).then(d=>{if(d){DL=d;$("dlbar").classList.add("on")}}).catch(()=>{})}catch(e){}
+try{DLP=(window.claude?claude.use("downloads"):Promise.resolve(null)).then(d=>{if(d)DL=d;return d}).catch(()=>null)}catch(e){}
 window.addEventListener("hashchange",route);
 $("callpage").onclick=e=>{const b=e.target.closest("[data-plan]");if(b){$("call").value=b.dataset.plan;setCall();location.hash="plan"}};
 setCall();route();
