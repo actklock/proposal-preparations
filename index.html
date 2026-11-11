@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#370065">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Horizon Europe Pillar 2 – Proposal preparations 2027</title>
+<style>
+:root{--bg:#fff;--card:#faf8fc;--text:#1d1a22;--muted:#5e5870;--line:#e2d9ec;--accent:#4e008e;--accent-soft:#efe6f7;--deep:#370065;--tlline:#d9c2f0;--fill:#a97bd8;--chiptx:#370065;--dot:#702f9b;--dotx:#fff;--dsel:#370065;--dselx:#fff;--dring:#c49ce8;--dpast:#b9a3cc;--callout:#e6d5f5;--mark:#d7263d;--gr:#f6d5e5;--gy:#fdf6d6;--gg:#d5f0ea;--ok:#1f9e89;--warn:#b45309;--past:#9a93a8;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15101c;--card:#1f1829;--text:#f2eef7;--muted:#b4a9c6;--line:#382c4a;--accent:#c4a0ff;--accent-soft:#2f2147;--deep:#2a0050;--tlline:#4a3566;--fill:#9a63d6;--chiptx:#e9dcff;--dot:#8c4cc4;--dotx:#fff;--dsel:#c4a0ff;--dselx:#1b0030;--dring:#4a2f6e;--dpast:#5a4c70;--callout:#3b2a58;--mark:#ff5c70;--gr:rgba(236,72,153,.2);--gy:rgba(234,179,8,.18);--gg:rgba(45,212,191,.16);--ok:#4fd1b8;--warn:#fbbf24;--past:#6c627e}}
+:root[data-theme="dark"]{--bg:#15101c;--card:#1f1829;--text:#f2eef7;--muted:#b4a9c6;--line:#382c4a;--accent:#c4a0ff;--accent-soft:#2f2147;--deep:#2a0050;--tlline:#4a3566;--fill:#9a63d6;--chiptx:#e9dcff;--dot:#8c4cc4;--dotx:#fff;--dsel:#c4a0ff;--dselx:#1b0030;--dring:#4a2f6e;--dpast:#5a4c70;--callout:#3b2a58;--mark:#ff5c70;--gr:rgba(236,72,153,.2);--gy:rgba(234,179,8,.18);--gg:rgba(45,212,191,.16);--ok:#4fd1b8;--warn:#fbbf24;--past:#6c627e}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:24px 16px 48px}
+h1{font-size:2rem;font-weight:800;letter-spacing:-.01em;line-height:1.15;margin:0 0 8px}
+.top{background:#370065;color:#fff;padding:32px 16px 28px}
+.topin{max-width:1040px;margin:0 auto}
+.top h1{color:#fff}
+.top .sub{color:#dccbee;margin:0;max-width:760px}
+.wrap{padding-top:20px}
+.sub{color:var(--muted);margin:0 0 20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px}
+.controls{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.controls select,.controls input[type=date]{height:44px;line-height:1.2}
+a,a:visited{color:var(--accent)}
+label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:4px}
+select,input[type=date]{width:100%;padding:10px;border-radius:4px;border:1px solid var(--line);background:var(--bg);color:var(--text);font:inherit}
+.summary{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:14px;align-items:baseline}
+.big{font-size:1.15rem;font-weight:650}
+.chip{display:inline-block;padding:2px 10px;border-radius:99px;background:var(--accent-soft);color:var(--accent);font-size:.85rem;font-weight:600}
+.chip.warn{background:transparent;border:1px solid var(--warn);color:var(--warn)}
+.note{font-size:.82rem;color:var(--muted);margin-top:8px}
+.tl{display:grid;grid-template-columns:repeat(7,1fr);margin:56px 0 18px;position:relative}
+.tl::before{content:"";position:absolute;top:16px;left:7%;right:7%;height:8px;border-radius:4px;background:var(--tlline)}
+.bs{padding:7px 0;border-top:1px solid var(--line);font-size:.9rem}.bs.past{opacity:.55}#bud summary{cursor:pointer}
+.gc{border-top:1px solid var(--line);padding:12px 0}.gc h3{margin:0 0 8px;font-size:1.05rem;font-weight:700;color:var(--accent)}
+.gopts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gopt{display:block;cursor:pointer;border:2px solid transparent;border-radius:6px;padding:8px 10px;font-size:.85rem;margin:0;color:var(--text)}
+.gopt input{margin-right:6px;accent-color:var(--accent)}
+.gopt.r{background:var(--gr)}.gopt.y{background:var(--gy)}.gopt.g{background:var(--gg)}
+.gopt.on.r{border-color:#d6336c}.gopt.on.y{border-color:#c99a00}.gopt.on.g{border-color:#1f9e89}
+.gopt ul{margin:4px 0 0;padding-left:18px}
+.gv{border-radius:6px;padding:10px 12px;margin-top:12px;font-weight:600}
+@media(max-width:720px){.gopts{grid-template-columns:1fr}}
+.dlbar{gap:8px;margin-top:14px;align-items:center;flex-wrap:wrap}.dlbar.on{display:flex}
+#dlpdf{margin-right:14px;}
+.kv{display:grid;grid-template-columns:minmax(150px,230px) 1fr;gap:6px 16px;margin-bottom:14px}.kv b{color:var(--muted);font-weight:600}
+#callpage h2{font-size:1.6rem;margin:4px 0 2px}#callpage h3{color:var(--accent);margin:0 0 8px;font-size:1.05rem}#callpage .panel{margin-top:16px}#callpage ul{margin:0;padding-left:20px}#callpage li{margin:6px 0}
+@media(max-width:720px){.kv{grid-template-columns:1fr}}
+.olp{margin-top:20px}.olh{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}#cap{width:auto}.olb{display:flex;gap:22px;flex-wrap:wrap;align-items:center;margin:12px 0 6px}.pct{font-size:2.4rem;font-weight:750;line-height:1}.olb .ol-t{flex:1 1 100%}.olrow{display:flex;align-items:center;gap:16px;margin:8px 0 4px}.olrow .gauge{flex:1;margin:0;height:12px;border-radius:6px}.olrow .pct{font-size:2rem;min-width:76px;text-align:right}.olr{margin-left:auto;text-align:right}.olr .note{margin:6px 0 0 auto;max-width:180px}.gauge{height:8px;border-radius:4px;background:var(--line);overflow:hidden;margin:0 0 8px}.gauge i{display:block;height:100%}.ol-t{flex:1;min-width:240px;font-size:.9rem}.ol-t div{margin-top:4px}.node.late .np{color:#dc2626;font-weight:700}
+.pinfill{position:absolute;top:16px;left:7.14%;height:8px;background:var(--fill);border-radius:4px}
+.pin{position:absolute;top:-34px;width:0;height:22px;z-index:2}
+.pin span{position:absolute;left:0;top:0;background:var(--mark);color:#fff;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px;white-space:nowrap}
+.pin::after{content:"";position:absolute;left:-1px;top:22px;height:32px;border-left:2px dashed var(--mark)}
+.todayrow{display:none}
+.node{all:unset;cursor:pointer;position:relative;text-align:center;padding:0 2px;display:block}
+.node:focus-visible .dot{outline:3px solid var(--accent);outline-offset:2px}
+.dot{width:40px;height:40px;border-radius:50%;margin:0 auto 8px;background:var(--dot);color:var(--dotx);border:3px solid var(--dot);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;position:relative;transition:transform .15s}
+.node:hover .dot{transform:scale(1.08)}
+.node.sel .dot{background:var(--dsel);color:var(--dselx);box-shadow:0 0 0 4px var(--dring)}
+.node{padding:6px 2px 8px;border-radius:8px}
+.node.sel{background:var(--accent-soft);box-shadow:inset 0 0 0 2px var(--accent)}
+.node.sel .nm{color:var(--accent);font-weight:800}
+.node.sel::after{content:"";position:absolute;left:50%;bottom:-12px;transform:translateX(-50%);border:8px solid transparent;border-top-color:var(--accent);border-bottom:0}
+.node.past .dot{background:var(--dpast);border-color:var(--dpast);color:#fff}
+.node.past.sel .dot{background:var(--dpast);color:#fff;box-shadow:0 0 0 4px var(--dring)}
+
+.nm{font-weight:650;font-size:.85rem}
+.nd{font-size:.78rem;color:var(--muted)}
+.np{font-size:.72rem;color:var(--ok)}
+.node.past .nm,.node.past .nd{color:var(--past)}
+.detail h2{margin:0;font-size:1.2rem}
+.detail .when{color:var(--muted);margin:2px 0 12px}
+.bar{height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin:6px 0 14px}
+.bar>i{display:block;height:100%;background:var(--dot);width:0;transition:width .2s}
+.grp{margin:14px 0 4px;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700}
+.task{display:flex;gap:10px;padding:7px 0;border-top:1px solid var(--line);cursor:pointer}
+.task input{margin-top:5px;width:17px;height:17px;accent-color:var(--accent);flex:none}
+.task.done span{color:var(--muted);text-decoration:line-through}
+.nav{display:flex;justify-content:space-between;margin-top:16px}
+.task a,.k a{color:var(--accent)}
+.keys{display:flex;flex-wrap:nowrap;gap:8px;margin-top:20px;overflow-x:auto}
+.k{padding:6px 10px;border:0;border-radius:6px;background:var(--callout);color:var(--chiptx);font-size:.8rem;flex:1 1 0;min-width:104px;white-space:normal}
+.k b{display:block;font-size:.85rem;margin:0 0 2px}
+.k.past{opacity:.5}
+.k.dl{background:var(--accent);color:var(--dselx)}
+button.b{padding:9px 16px;border-radius:4px;border:0;background:var(--accent);color:var(--bg);font:inherit;font-weight:600;cursor:pointer}
+button.b:hover{filter:brightness(1.12)}
+button.b:disabled{opacity:.4;cursor:default}
+@media(max-width:720px){
+ .controls{grid-template-columns:1fr}
+ .tl{grid-template-columns:1fr;gap:6px;margin:20px 0}
+ .tl::before{display:none}
+ .node{display:grid;grid-template-columns:44px 1fr auto;column-gap:10px;text-align:left;align-items:center;padding:6px;border-radius:10px;border:1px solid var(--line);background:var(--card)}
+ .node.sel{border-color:var(--accent);background:var(--accent-soft)}
+ .node.sel::after{display:none}
+ .dot{margin:0;width:36px;height:36px}
+ 
+ .pin,.pinfill{display:none}
+ .todayrow{display:block;text-align:center;font-size:.8rem;font-weight:700;color:#fff;background:var(--mark);border-radius:8px;padding:4px 8px}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+<header class="top"><div class="topin"><h1>Horizon Europe Pillar 2: Proposal preparations 2027</h1><p class="sub">All Horizon Europe calls with a 2027 deadline. Tentative milestones from 6 months out to the final 2 weeks are recalculated to exact dates, with call-specific eligibility, sanctions, template and timing tasks below.</p><p class="sub" style="margin-top:10px"></p></div></header>
+<div class="wrap" id="plan">
+
+ <div class="panel">
+  <div class="controls">
+   <div><label for="call">Call</label><select id="call"></select></div>
+   <div><label for="cdate">Deadline (custom)</label><input type="date" id="cdate"></div>
+  </div>
+   <div class="summary">
+   <span class="big" id="dl"></span><span class="chip" id="left"></span><span id="ov" class="note" style="margin:0"></span>
+  </div>
+  <div class="note" id="cnote"></div>
+  <div class="note">Deadlines are 17:00:00 Brussels time. Dates and budgets come from the work programme and agency announcements and can still change: always confirm in the call details on the EU Funding &amp; Tenders Portal.</div>
+  <div class="dlbar" id="dlbar"><button class="b" id="dlpdf">Download PDF</button><button class="b" id="dldoc">Download Word</button><span class="note" id="dlmsg"></span></div>
+ </div>
+
+ <div class="panel" id="gnp" style="margin-top:20px"></div>
+ <div class="panel olp"><div class="olh"><b>Submission outlook</b></div><div id="ol"></div></div>
+ <div class="keys" id="keys"></div>
+ <div class="tl" id="tl" role="tablist"></div>
+ <div class="panel detail" id="detail"></div>
+ 
+</div>
+<div class="wrap" id="callpage" style="display:none"></div>
+
+<script>
+const TS={
+s1:[[6,"Stage 1 is a short proposal (about 10 pages, anonymised in some calls): concentrate on the idea, impact pathway and a headline work plan"],[3,"Don’t over-write: keep detailed work plan and budget for stage 2 and sharpen the ‘why this team, why now’ story"],[1,"Prepare stage 2 in parallel: keep partners, PICs and budget logic ready, because the full proposal follows months later"]],
+s2:[[6,"Only invited consortia can submit: start from the stage 1 evaluation report and the invitation conditions (e.g. limits on changing partners)"],[4,"Answer every stage 1 evaluator comment explicitly in the full proposal"],[2,"This is a full proposal: confirm complete Part B, detailed budget and ethics/security self-assessment"]],
+sec:[[6,"Check topic conditions: practitioner/end-user partners (police, border, civil protection) from several Member States and limits on non-EU participants"],[3,"Plan the security and ethics sections early: sensitive information, misuse risk, possible EU-classified content"],[1,"Collect letters of commitment from practitioner end-users"]],
+part:[[5,"Partnership topic: talk to the partnership office or NCP, and check the proposal supports its research agenda and any extra conditions"]],
+ia:[],
+csa:[]
+};
+const C=(id,l,o,d,t,tp=[],k=[],n="")=>({id,l,o,d,t,tp,k,n});
+const G=[
+["Cluster 1 – Health",[
+C("h1","HLTH-2027-01 · single stage","2026-10-29","2027-02-17","10 topics, mainly RIA at €6–11M per project: disability and independent living (STAYHLTH-01), climate exposome (ENVHLTH-02), health adaptation tools as PCP (MISSCLIMA-03), antivirals (DISEASE-05), monoclonal antibodies (DISEASE-06/07), antimicrobials (DISEASE-08), chronic NCDs in children with GACD (DISEASE-10), adverse drug reactions (CARE-02), cell-free protein synthesis (IND-01).",[],[[5,"Clinical or patient-facing topics: line up clinical sites, patient organisations and the sex/gender dimension now"],[5,"DISEASE-10 (GACD): check co-funder and country conditions"],[6,"MISSCLIMA-03 is a PCP: public procurers must be in the consortium"]]),
+C("h2","HLTH-2027-02 · two-stage, stage 1","2026-10-29","2027-02-17","4 topics: NCD interventions (DISEASE-01, RIA €7–8M), neurodegenerative clinical trials (DISEASE-14), AI biomarkers for chronic NCDs (TOOL-01, RIA €6–8M), point-of-care diagnostics (IND-02, IA €5–7M).",["s1","ia"]),
+C("h3","HLTH-2027-02 · two-stage, stage 2",null,"2027-09-16","Full proposal for consortia invited after stage 1.",["s2"]),
+C("h4","HLTH-2027-03 · single stage","2027-06-03","2027-09-16","Virtual Human Twins for clinical decision support (TOOL-04, RIA €10–12M), frontier AI models for healthcare (TOOL-08, CSA about €2.9M), bioprinting.",[],[[5,"The call opens 3 June, so draft the concept earlier; the writing window afterwards is about 3.5 months"]])]],
+["Cluster 2 – Culture, Creativity & Inclusive Society",[
+C("c2a","CL2 two-stage 2027, stage 1","2027-03-02","2027-05-04","About €58M: open topics on European democracy and cultural heritage, and the socio-economic situation of people with dementia and informal carers.",["s1"]),
+C("c2b","CL2 two-stage 2027, stage 2",null,"2027-09-30","Full proposal for invited consortia.",["s2"]),
+C("c2c","CL2 single stage 2027","2027-05-13","2027-09-23","About €277M: democratic participation, media freedom, AI, cultural and creative industries, sustainable tourism, education, inclusion, social economy.",[],[[4,"Cluster 2 expects real SSH integration: involve social-science and humanities partners and citizens or stakeholders, not as an add-on"]])]],
+["Cluster 3 – Civil Security for Society",[
+C("c3a","CL3-2027-01 Civil Security","2027-05-05","2027-11-04","About €129.5M, single stage: online harms (FCT-01, IA), community policing (FCT-02), open crime and terrorism topics (FCT-03/04), synthetic drugs (FCT-05), CBRN-E protective gear (DRS-01), disaster decision support and cross-border preparedness (DRS-03/04), OSINT misuse (INFRA-02), SME innovation (SSRI-01), PCP preparation (SSRI-02, CSA) and demand-led PCP (SSRI-03).",["sec"],[[6,"SSRI-02/03 are procurement actions: public procurers are required"]]),
+C("c3b","CL3-2027-02-CS-ECCC Cybersecurity","2027-03-02","2027-09-15","Managed by the European Cybersecurity Competence Centre, e.g. AI for cybersecurity applications (ECCC-01).",["sec"],[],"Check the ECCC call page: rules and budget are set by the Centre.")]],
+["Cluster 4 – Digital, Industry & Space",[
+C("d1","CL4-2027-01 Industry · single stage","2026-10-13","2027-02-02","€224.7M, 11 topics: advanced manufacturing for key products (MAT-PROD-02, IA €6–8M), circular advanced materials (06), de-/re-manufacturing (03), textile circularity (08), critical raw materials processing and expert network (16, 22, 17), academic IP valorisation (42), scale-ups (47), proof of market (49).",["part","ia"]),
+C("d2","CL4-2027-02 Industry · two-stage, stage 1","2026-10-13","2027-02-02","€82.5M, 2 topics: renewable energy in process industries (MAT-PROD-32) and Human/AI collaboration for the future workforce (DIGITAL-EMERGING-52).",["s1","part"]),
+C("d3","CL4-2027-02 Industry · two-stage, stage 2",null,"2027-09-02","Full proposal for invited consortia.",["s2"]),
+C("d4","CL4-2027-06 Fast Track (industry)","2026-09-22","2027-02-02","Fast Track to R&I for industrial technologies and the Chemical Industry Action Plan (MAT-PROD-61/62, RIA, up to about €2.5M per project).",[],[],"Check on the Portal whether the topic is single- or two-stage."),
+C("d5","HORIZON-RAISE-2027-01 AI in Science","2026-10-13","2027-02-02","€30.5M, 3 topics: Automated Scientific Discovery, the same for food, and a Data Lab for Science linked to EOSC and RAISE."),
+C("d6","CL4-2027-04 Digital & AI","2026-11-17","2027-03-18","About €272M, 11 topics: federated AI data processing (DATA-03, RIA €35M), AI in data centres (DATA-09), Apply AI booster (EMERGING-04) and robotics (05, IA €18M), international AI cooperation (06), foresight (10), EU Frontier AI Initiative (11), digital standardisation (HUMAN-07).",["part"]),
+C("d7","CL4-2027-05 Photonics","2026-11-17","2027-03-18","About €25M: integrated photonic devices with ultra-low power use (EMERGING-03, RIA, €3–5M per project, up to 6).",["part"]),
+C("d8","CL4-2027-03 Space","2027-03-09","2027-09-02","About €68M: quantum space gravimetry (SPACE-03-71, RIA €14–15M), digital autonomy tools for space transport (03-12), collaborative Earth observation and satcom (03-21, 03-33), critical EEE components and equipment (03-83, 03-84).",["part"]),
+C("d9","Horizontal: Clean Industrial Deal (CID-2027-01)","2027-01-12","2027-09-15","Cross-cutting R&I call supporting the Clean Industrial Deal, funded from Clusters 4 and 6.",[],[],"See the Portal for the topic list.")]],
+["Cluster 5 – Climate, Energy & Mobility",[
+C("e1","CL5-2027-01 Climate","2026-11-17","2027-03-04","Single stage: extreme-event understanding and prediction (D1-07), next-generation climate scenarios (D1-13, RIA)."),
+C("e2","CL5-2027-02 Batteries & Energy","2026-12-03","2027-03-31","About €228M: battery recycling and cell production (D2-06, BATT4EU), solar, wave and tidal, renewable energy valleys, AI for energy systems, direct air capture.",["part","ia"]),
+C("e3","CL5-2027-03 Mobility","2026-12-15","2027-04-14","About €131M: data-driven mobility (D5-03, IA €24M), zero-emission coaches and buses (D5-04), megawatt-charging heavy-duty powertrain (D5-05), EV fire safety (D5-06), aviation and waterborne transport.",["part","ia"]),
+C("e4","CL5-2027-04 Batteries & Mobility · stage 1","2026-12-15","2027-04-14","Next-generation battery concepts with advanced materials (D2-07, RIA about €48M, ~10 projects, BATT4EU and IAM4EU) and aircraft noise reduction (D5-09, RIA €5M).",["s1","part"]),
+C("e5","CL5-2027-04 Batteries & Mobility · stage 2",null,"2027-10-07","Full proposal for invited consortia.",["s2"]),
+C("e6","CL5-2027-05 Batteries & Energy","2027-05-05","2027-09-15","Long-duration battery storage demo (D2-08, IA €19M), robotic building renovation (D4-05, IA €20M), waste-heat recovery for IT rooms (D4-06, IA €16M), circular LCA modelling for renovation (D4-07).",["part","ia"]),
+C("e7","CL5-2027-06 Mobility","2027-06-03","2027-10-07","CCAM integration in critical scenarios (D6-04), CCAM knowledge hub (D6-05), IA about €21M (D6-08), transport research dissemination events (D6-12).",["part"]),
+C("e8","CL5-2027-07 Energy","2027-08-04","2027-12-01","Energy IA topics, e.g. D3-12 (about €17M) and D3-27 (about €29M).",["ia"],[[6,"The call opens in August: use the spring and summer to build the consortium and prepare the concept"]])]],
+["Cluster 6 – Food, Bioeconomy, Environment",[
+C("f1","CL6-2027-01 Circular bioeconomy · two-stage, stage 1","2027-02-04","2027-04-08","IA topics: circular systemic solutions through living labs in cities and regions (CIRCBIO-01, €10M) and open topic using the Circular Cities and Regions Initiative (CIRCBIO-02, €18M).",["s1","ia"]),
+C("f2","CL6-2027-01 Circular bioeconomy · two-stage, stage 2",null,"2027-09-16","Full proposal for invited consortia.",["s2"]),
+C("f3","CL6-2027-02 Farm2Fork & Water · two-stage, stage 1","2027-02-04","2027-04-08","Plant health and emerging pests (FARM2FORK-01), water-nutrient-energy nexus (FARM2FORK-02), European Water Resilience Strategy open topic (CLIMATE-01, IA €11M).",["s1"]),
+C("f4","CL6-2027-02 Farm2Fork & Water · two-stage, stage 2",null,"2027-09-14","Full proposal for invited consortia.",["s2"]),
+C("f5","CL6-2027-03 Governance & observation","2027-02-04","2027-05-11","Single stage: governance, environmental observation and digital solutions for the Green Deal (RIA about €12M)."),
+C("f6","CL6-2027-01 single stage","2027-04-20","2027-09-22","Biodiversity restoration technology (BIODIV-03), repair and refurbishment capacity (CIRCBIO-04), bioeconomy places (CIRCBIO-06), zero-pollution benchmarking (ZEROPOLLUTION-04), forest research (CIRCBIO-10) and more."),
+C("f7","CL6-2027-02 single stage","2027-04-20","2027-09-23","Food systems (FARM2FORK-05, IA €12M; -07 microbiome; -09 AU–EU food and nutrition), Antarctica (CLIMATE-04), urban food entrepreneurship (COMMUNITIES-02) and more."),
+C("f8","HORIZON-NATURE-2027 bridging actions",null,"2027-01-14","Two bridging topics (NATURE-2027-01/02) listed by the Cluster 6 agency.",[],[],"Check the Portal for details.")]],
+["EU Missions",[
+C("m1","Mission Climate Adaptation (MISS-2027-01)","2027-02-09","2027-09-21","Cross-border climate resilience demonstrations (CLIMA-01) and AI for regional and local resilience (CLIMA-02).",["ia"],[[5,"Missions expect regions, cities or communities as partners: contact the Mission secretariat or NCP early"]]),
+C("m2","Mission Cancer (MISS-2027-02)","2027-02-10","2027-09-21","Functional genomics for new targets (CANCER-01), clinical research in Comprehensive Cancer Infrastructures (CANCER-02), phase 1 first-in-human trials for rare cancers (CANCER-03).",[],[[5,"Clinical topics: secure hospitals, ethics approval routes and patient involvement early"]]),
+C("m3","Mission Climate-Neutral & Smart Cities","2027-02-09","2027-10-07","Cities mission topics; see the Portal for the list.",["ia"],[[5,"Involve city authorities as partners or demonstration sites"]]),
+C("m4","Mission Soil Deal · two-stage, stage 1","2027-02-04","2027-04-08","Soil Deal for Europe topics in a two-stage format.",["s1"]),
+C("m5","Mission Soil Deal · two-stage, stage 2",null,"2027-09-14","Full proposal for invited consortia.",["s2"]),
+C("m6","Mission Soil Deal · single stage","2027-02-04","2027-09-21","Living labs on carcinogenic substances in soils and their human cancer risk (MISS-2027-06-SOIL-CANCER).",[])]],
+["Other Pillar 2-adjacent calls",[
+C("i1","Research Infrastructures 2027","2027-03-09","2027-06-15","ESFRI preparatory phase (DEV-01-01, CSA), consolidation (DEV-01-02/03, RIA), access services (SERV-01-01/02/03), co-creation of RI technologies (TECH-01-01), EOSC for valorisation (EOSC-02).",["csa"]),
+C("w1","WIDERA-2027-04 Widening","2026-09-02","2027-03-04","Widening participation CSAs, about €1.5–4.5M per project.",["csa"]),
+C("w2","WIDERA-2027-05 ERA reform","2026-12-08","2027-03-11","Reforming the R&I system, e.g. talent ecosystems for early research careers (ERA-02).",["csa"]),
+C("w3","WIDERA-2027 (opens 7 Apr)","2027-04-07","2027-09-08","See the Portal for the topics.",["csa"]),
+C("w4","WIDERA-2027-02 Widening","2027-04-06","2027-09-14","Includes ERA Research Managers (WIDENING-02).",["csa"]),
+C("w5","WIDERA-2027 (opens 5 May)","2027-05-05","2027-11-18","See the Portal for the topics.",["csa"]),
+C("z1","EIE-2027-01 Innovation ecosystems","2027-06-01","2027-09-15","Enhancing the involvement of philanthropic organisations in innovation ecosystems (CONNECT-03).",["csa"]),
+C("z2","NEB-2027-01 New European Bauhaus",null,"2027-12-01","Innovative models for neighbourhoods integrating beauty, inclusiveness and sustainability.",["ia"])]]
+];
+const CALLS=G.flatMap(g=>g[1]);
+const NX={h2:"h3",c2a:"c2b",d2:"d3",e4:"e5",f1:"f2",f3:"f4",m4:"m5"};
+const RS=["d6","d7","d8","c3a","c3b"];
+const EV={d:[["2026-10-14","CL4 info days (14–15 Oct)"]],e:[["2026-11-19","CL5 info day and brokerage"]],f:[["2027-01-13","CL6 info days (13–14 Jan)"],["2027-01-15","CL6 brokerage event"]]};
+const LNK={ria:"https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/horizon/temp-form/af/af_he-ria-ia_en.pdf",ga:"https://ec.europa.eu/info/funding-tenders/opportunities/docs/2021-2027/horizon/wp-call/2026-2027/wp-15-general-annexes_horizon-2026-2027_en.pdf",pt:"https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/home"};
+const A=(u,t)=>`<a href="${u}" target="_blank" rel="noopener">${t}</a>`;
+const stg=c=>NX[c.id]?1:Object.values(NX).includes(c.id)?2:0;
+function rulesFor(m){
+ const c=cur,st=stg(c),csa=(c.tp||[]).includes("csa"),sec=(c.tp||[]).includes("sec")||RS.includes(c.id);
+ const lim=st===1?"10 pages for the first stage":csa?"25 pages (28 with lump sum)":"40 pages (45 with lump sum)";
+ const tpl=st===1?"the first-stage Part B template (v5.x; some topics use a BLIND version)":csa?"the CSA Part B template":"the RIA/IA Part B template ("+A(LNK.ria,"form v5.1, Jan 2026")+")";
+ const R=[
+ [6,"<b>Eligibility:</b> "+(csa?"CSAs usually need one legal entity from an EU Member State or Associated Country, but several WIDERA and infrastructure topics set more or limit participation to Widening countries":"at least 3 independent legal entities from 3 different countries: one in an EU Member State, the others in Member States or Associated Countries; affiliated entities do not count")+". Topic text can add conditions, so copy them into your checklist ("+A(LNK.ga,"General Annexes A–C")+")"],
+ [6,"<b>Open the topic on the Portal ("+A(LNK.pt,"Funding & Tenders")+"):</b> "+topicLinks(cur)+" Read the ‘Conditions’ tab (admissibility, eligibility, funding model, security or ethics rules) and note the call-specific questions in Part A"],
+ [5,"<b>Sanctions and restrictions:</b> no entity established in Russia, Belarus or non-government-controlled Ukraine may take part in any role (beneficiary, affiliated entity, associated partner, third party). Screen every partner against the EU Sanctions Map and read the Annex B condition on Chinese universities linked to MIIT"],
+ [5,"<b>Third countries:</b> entities from non-associated third countries may join but are funded only where the topic or Annex B allows; otherwise budget them as self-funded"],
+ [4,"<b>Templates:</b> download "+tpl+" from the topic’s submission page on the Portal, because the version attached to the topic is the authoritative one. Page limit: "+lim],
+ [4,"<b>Gender equality plan:</b> public bodies, research organisations and higher-education institutions from EU/Associated countries need a GEP (check Annex B); collect the declarations"],
+ [2,"<b>Page limit check:</b> "+lim+" for title, participant list and sections 1–3 together; pages above the limit are not read by evaluators"],
+ [1,"<b>Partner paperwork:</b> valid PIC and a reachable legal signatory for every partner, declaration on honour (exclusion criteria), and check Annex C for financial-capacity checks on the coordinator"],
+ [1,"<b>Sanctions re-check:</b> re-screen all partners and any late additions before the final submission"],
+ [0.5,"<b>Submit:</b> Part A online, Part B as PDF; deadline is 17:00:00 Brussels time and only the last submitted version counts. Keep the confirmation e-mail"]
+ ];
+ if(sec)R.splice(4,0,[5,"<b>Control and security rules:</b> this area may apply Article 22(5) restrictions (EU/Associated entities only, or no entities controlled by non-eligible third countries) and security scrutiny: confirm in the topic and collect ownership information from partners"]);
+ if(st===1)R.push([0.5,"<b>First stage:</b> if the template is BLIND, no logos or personnel names in the abstract or Part B, otherwise the proposal is inadmissible"]);
+ return R.filter(a=>a[0]===m).map(a=>a[1]);
+}
+const TZ={
+h1:{p:"HORIZON-HLTH-2027-01-",z:"STAYHLTH-01 ENVHLTH-02 ENVHLTH-MISSCLIMA-03 DISEASE-05 DISEASE-06 DISEASE-07 DISEASE-08 DISEASE-10 CARE-02 IND-01 TOOL-05"},
+h2:{p:"HORIZON-HLTH-2027-02-",x:"-two-stage",z:"DISEASE-01 DISEASE-14 TOOL-01 IND-02"},
+h4:{s:"TOOL-04 TOOL-08"},
+c3a:{p:"HORIZON-CL3-2027-01-",z:"FCT-01 FCT-02 FCT-03 FCT-04 FCT-05 DRS-01 DRS-03 DRS-04 INFRA-02 SSRI-01 SSRI-02 SSRI-03"},
+c3b:{p:"HORIZON-CL3-2027-02-",z:"CS-ECCC-01"},
+d1:{s:"MAT-PROD-02 MAT-PROD-03 MAT-PROD-06 MAT-PROD-08 MAT-PROD-16 MAT-PROD-17 MAT-PROD-22 MAT-PROD-42 MAT-PROD-47 MAT-PROD-49"},
+d2:{s:"MAT-PROD-32 DIGITAL-EMERGING-52"},
+d4:{s:"MAT-PROD-61 MAT-PROD-62"},
+d6:{s:"DATA-03 DATA-09 DIGITAL-EMERGING-04 DIGITAL-EMERGING-05 DIGITAL-EMERGING-06 DIGITAL-EMERGING-10 DIGITAL-EMERGING-11 HUMAN-07"},
+d7:{s:"DIGITAL-EMERGING-03"},
+d8:{p:"HORIZON-CL4-2027-SPACE-",z:"03-71 03-12 03-21 03-33 03-83 03-84"},
+e1:{s:"D1-07 D1-13"},e2:{s:"D2-06"},e3:{s:"D5-03 D5-04 D5-05 D5-06"},
+e4:{p:"HORIZON-CL5-2027-04-Two-Stage-",z:"D2-07 D5-09"},
+e6:{s:"D2-08 D4-05 D4-06 D4-07"},e7:{s:"D6-04 D6-05 D6-08 D6-12"},e8:{s:"D3-12 D3-27"},
+f1:{s:"CIRCBIO-01 CIRCBIO-02"},f3:{s:"FARM2FORK-01 FARM2FORK-02 CLIMATE-01"},
+f6:{s:"BIODIV-03 CIRCBIO-04 CIRCBIO-06 ZEROPOLLUTION-04 CIRCBIO-10"},f7:{s:"FARM2FORK-05 FARM2FORK-07 FARM2FORK-09 CLIMATE-04 COMMUNITIES-02"},
+m1:{s:"CLIMA-01 CLIMA-02"},m2:{s:"CANCER-01 CANCER-02 CANCER-03 CANCER-05"},m6:{s:"MISS-2027-06-SOIL-CANCER"},
+i1:{s:"DEV-01-01 DEV-01-02 DEV-01-03 SERV-01-01 SERV-01-02 SERV-01-03 TECH-01-01 EOSC-02"},
+w2:{s:"ERA-02"},z1:{s:"CONNECT-03"}};
+TZ.h3=TZ.h2;TZ.d3=TZ.d2;TZ.e5=TZ.e4;TZ.f2=TZ.f1;TZ.f4=TZ.f3;
+function topicLinks(c){const t=TZ[c.id];if(!t)return"";const B="https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/";
+ const L=[...(t.z||"").split(" ").filter(Boolean).map(k=>A(B+"topic-details/"+t.p+k+(t.x||""),k)),...(t.s||"").split(" ").filter(Boolean).map(k=>A(B+"calls-for-proposals?keywords="+encodeURIComponent(k)+"&isExactMatch=true&status=31094501,31094502,31094503&frameworkProgramme=43108390",k+" (search)"))];
+ return L.length?"<b>Topic descriptions on the Portal:</b> "+L.join(" · ")+".":""}
+const CU={id:"custom",t:"Enter any call deadline in the date field.",tp:[],k:[]};
+const MS=[
+ {m:6,t:"Scope & decide",g:[
+  ["Read the topic text, destination and work programme introduction line by line; note expected outcomes, scope, TRL and type of action (RIA / IA / CSA)","Check eligibility: who may apply, budget range, special conditions, countries, security or dual-use rules"],
+  ["Readiness check with your grants office or NCP, using the checklist at the top of this page","Pick the coordinator and a core writing team (2–4 people)","Look at funded projects on CORDIS for overlap and positioning"],
+  ["Register the organisation on the Portal and validate its PIC; check LEAR and legal-entity data","Mark info days and brokerage events in your calendar"]]},
+ {m:5,t:"Build the consortium",g:[
+  ["Draft a one-page idea: problem, approach, novelty, expected impact","Map the competences you need and list partner gaps"],
+  ["Invite core partners; use NCPs, networks and partnering tools for the rest","Check minimum composition (3 independent entities from 3 countries, at least one in an EU Member State) and any topic-specific requirements"],
+  ["Agree roles, effort and indicative budget shares in principle","Collect PICs and contact persons from every partner","Plan the consortium kick-off call"]]},
+ {m:4,t:"Concept & structure",g:[
+  ["Write a 2–3 page concept note mapped to every expected outcome in the topic","Define the impact pathway: outcomes, KPIs, target groups"],
+  ["Draft the work-package structure and leaders, plus a first deliverables / milestones list","Decide on third-country partners and associated stakeholders"],
+  ["Check gender equality plan (GEP) requirement for public bodies, research organisations and universities","Note ethics, open science, data management and security questions early"]]},
+ {m:3,t:"Write the first draft",g:[
+  ["Split Part B sections among authors with a clear template and style guide","Collect partner input: profile, role, key people, infrastructure"],
+  ["Draft Excellence (objectives, methodology, concept) and Impact (pathways, dissemination, exploitation, communication)","Draft Implementation: work plan, Gantt, risks, management structure"],
+  ["Build the first cost model (person-months, travel, equipment, subcontracting)","Hold a mid-writing consortium call to resolve open issues"]]},
+ {m:2,t:"Complete draft & review",g:[
+  ["Finish the full draft of all sections, tables and figures","Make the budget and person-months match the work plan"],
+  ["Do an internal review against the evaluation criteria (Excellence, Impact, Quality & efficiency of implementation)","Ask for an independent “red team” review from someone outside the writing team"],
+  ["Start filling in Part A in the Portal: participants, budget, ethics self-assessment","Check page limits and templates against the current Standard application form"]]},
+ {m:1,t:"Revise & finalise",g:[
+  ["Integrate review comments; sharpen the summary, objectives and impact claims","Check consistency of numbers, names and acronyms across the whole proposal"],
+  ["Gather partner confirmations: PIC validation, declarations, financial-capacity details","Final budget approval at each partner organisation"],
+  ["Complete Part A and run a first test submission on the Portal","Proofread and layout-check the PDF, including references and annexes"]]},
+ {m:0.5,t:"Freeze & submit",g:[
+  ["Freeze the text; only fix errors from now on","Upload final Part B and annexes; confirm Part A is complete and consistent"],
+  ["Submit at least 2–3 days before the deadline; you can resubmit until the call closes","Check the submission confirmation e-mail and download the PDF receipt"],
+  ["Tell all partners it’s submitted; archive the final version and the partner declarations","Plan for evaluation: the proposal text will be read by experts without your context"]]}
+];
+const GN=["Scope","People","Documents"];
+const MS_LABEL=m=>m===0.5?"2 weeks":m+(m===1?" month":" months");
+const fmt=d=>d.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+const fmtL=d=>d.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+function minus(D,m){
+ if(m===0.5){const x=new Date(D);x.setDate(x.getDate()-15);return x}
+ const y=D.getFullYear(),mo=D.getMonth()-m,day=D.getDate();
+ const last=new Date(y,mo+1,0).getDate();
+ return new Date(y,mo,Math.min(day,last),12);
+}
+const $=id=>document.getElementById(id);
+let checks={},sel=0,D=null,callId="";
+try{checks=JSON.parse(localStorage.getItem("p2tl")||"{}")}catch(e){checks={}}
+const save=()=>{try{localStorage.setItem("p2tl",JSON.stringify(checks))}catch(e){}};
+const today=(()=>{const t=new Date();t.setHours(12,0,0,0);return t})();
+const key=(m,i,j)=>callId+"|"+m+"|"+i+"|"+j;
+let cur=null;
+const tipsFor=m=>[...(cur.tp||[]).flatMap(n=>TS[n]),...(cur.k||[])].filter(a=>a[0]===m).map(a=>a[1]);
+const stat=ms=>{let d=0,t=0;ms.g.forEach((g,i)=>g.forEach((_,j)=>{t++;if(checks[key(ms.m,i,j)])d++}));tipsFor(ms.m).forEach((_,j)=>{t++;if(checks[key(ms.m,9,j)])d++});rulesFor(ms.m).forEach((_,j)=>{t++;if(checks[key(ms.m,8,j)])d++});budgetFor(ms.m).forEach((_,j)=>{t++;if(checks[key(ms.m,7,j)])d++});tplFor(ms.m).forEach((_,j)=>{t++;if(checks[key(ms.m,6,j)])d++});coFor(ms.m).forEach((_,j)=>{t++;if(checks[key(ms.m,"C",j)])d++});gnFor(ms.m).forEach((_,j)=>{t++;if(checks[key(ms.m,"G",j)])d++});spFor(ms.m).forEach((_,j)=>{t++;if(checks[key(ms.m,"S",j)])d++});return[d,t]};
+
+function pickDefault(){const k=MS.findIndex(x=>{const v=stat(x);return v[0]<v[1]});sel=k<0?MS.length-1:k}
+const BUD=[
+{m:6,off:6,t:"Concept development and proposal structuring",pre:"WP structure and core consortium structure",who:"PI, grant writer, core partners",tools:"template, topic text, consortium meetings, Teams platform"},
+{m:3,off:3,t:"Internal initial budget allocation",pre:"WPs, WP leads, consortium",who:"PI, grant writer, financial expert",tools:"topic text, consortium partner list, initial training materials"},
+{m:2,off:2.5,t:"Budgeting kick-off and partner briefing",pre:"WP descriptions, budget allocations",who:"financial expert, partners, PI, grant writer",tools:"info session, budget and lump-sum Excel file, budgeting instructions, 1-on-1 meetings with partners"},
+{m:2,off:2.5,t:"Internal budgeting",pre:"WP descriptions, budget allocations",who:"PI, faculty finances (grant writer, financial expert), dean",tools:"internal Excel file, institutional rates, internal approval"},
+{m:1,off:2.5,to:1,t:"Individual partner budgeting (with internal checks)",pre:"WP descriptions, budget allocations",who:"partner PI, partner financial expert",tools:"lump-sum Excel file"},
+{m:1,off:2.5,to:1,t:"Budget reviews and feedback, iterating with partner budgeting",pre:"WP descriptions",who:"PI, financial expert",tools:"lump-sum Excel file"},
+{m:0.5,off:0.5,t:"Budget finalisation",pre:"reviewed and finalised partner budgets plus work plan",who:"financial expert, grant writer",tools:"Part A, Part B"}];
+const bd=o=>{if(o%1===0||o===0.5)return minus(D,o);const x=minus(D,Math.floor(o));x.setDate(x.getDate()-15);return x};
+const budgetFor=m=>{const s1=stg(cur)===1;
+ if(s1&&m===3)return["<b>Budget · Stage 2 planning:</b> stage 1 needs far less budget detail, so run the full partner budgeting workflow for the stage 2 deadline"+(NX[cur.id]?" ("+fmt(new Date(CALLS.find(x=>x.id===NX[cur.id]).d+"T12:00:00"))+")":"")+"."];
+ return BUD.filter(b=>b.m===m&&(!s1||b.m===6)).map(b=>`<b>Budget · ${b.t}</b> (start by ${fmt(bd(b.off))}${b.to?", finish by "+fmt(bd(b.to)):""}): prerequisite: ${b.pre}. With ${b.who}. Tools: ${b.tools}.`)};
+const TPL=[
+{id:"A",n:"Part A forms",c:0,d:2,g:"General information, participants, budget, ethics and security self-assessment, other questions: complete them in the Portal"},
+{id:"1.1",n:"Objectives and ambition",c:1,d:5,g:"Specific, measurable objectives tied to the topic’s expected outcomes; state of the art and what goes beyond it"},
+{id:"1.2",n:"Methodology",c:1,d:4,g:"Concept, models and assumptions; interdisciplinary and SSH aspects; gender dimension; open science practices; research data management; main challenges and how you will overcome them"},
+{id:"2.1",n:"Project’s pathways towards impact",c:2,d:3,p:"3",g:"Link each expected outcome and destination impact to your results; target groups; barriers and how you mitigate them; KPIs"},
+{id:"2.2",n:"Measures to maximise impact (dissemination, exploitation, communication)",c:2,d:2,p:"3",g:"First dissemination, exploitation and communication plan; IP strategy; business plan annex if the topic requires one"},
+{id:"2.3",n:"Summary (key impact pathways canvas)",c:2,d:2,s3:1,g:"One compact table linking needs, results, measures, target groups, outcomes and impacts"},
+{id:"3.1",n:"Work plan: work packages, deliverables, milestones",c:3,d:4,s3:1,p:"12 (17 with lump sum)",g:"WP list (3.1a) and descriptions (3.1b) with tasks, leads and partners; Gantt/PERT; deliverables and milestones; critical risks with mitigation"},
+{id:"3.1",n:"Resources: effort and cost tables",c:3,d:2,s3:1,g:"Effort per WP and partner, cost tables (3.1c–3.1j), subcontracting and in-kind contributions; must match the Part A budget"},
+{id:"3.2",n:"Capacity of participants and consortium as a whole",c:3,d:3,s3:1,p:"3",g:"Role and complementarity of every partner, key people, infrastructure access, gaps covered"}];
+const tplFor=m=>{const s1=stg(cur)===1,CR=["Part A (online)","Excellence","Impact","Implementation"];return TPL.filter(t=>t.d===m&&!(s1&&t.s3)).map(t=>`<b>${t.c?"Part B "+t.id:"Part A"} · ${t.n}</b> (${CR[t.c]}${t.p?", about "+t.p+" pages":""}): first full draft by this date. ${t.g}.`)};
+const CO={
+6:["<b>Treat the call text as your source of truth:</b> scan it for challenges, objectives and required outputs, then test your idea on a trusted colleague","<b>Agree the coordination split in writing:</b> if you share leadership between an administrative co-coordinator and the official (technical) Coordinator, settle roles before drafting anything, because renegotiating under deadline is painful","<b>Draft the Concept Note</b> as a pitch document with your core partners (usually people you have worked with before) and lock the main methodology and a preliminary WP structure"],
+5:["<b>Recruit to fill specific gaps</b> (brokerage events, CORDIS) so the consortium covers the exact expertise your methodology promises","<b>Check the partner mix and spread:</b> SMEs, academia and end-users, and a strong geographic distribution across the EU","<b>Keep a backup partner list:</b> drop any prospect who goes silent for more than a week, since there is no time to chase uncommitted partners"],
+4:["<b>Build the shared workspace</b> (SharePoint, Google Drive or similar) like a small website: a home page linking the call text, naming the proposal and listing the coordinators, with folders for call analysis, templates, meeting minutes, the WP structure and the working Part B","<b>Onboard the consortium</b> with short presentations: lump sum versus actual-cost grants, what feeds into Part A, your rules on AI use, and how the group will work"],
+3:["<b>Set a meeting cadence:</b> every two weeks now, weekly in the final stretch","<b>Keep the master schedule inside the coordination team:</b> give partners the broad outline and, after each meeting, only the next three actionable steps","<b>Send an internal data collection template</b> to partners for admin data, person-month rates and partner profiles needed for Part A and the budget"],
+2:["<b>Move to weekly meetings</b> and repeat the ‘next three steps’ summary after every one","<b>Flag the AI rules to partners:</b> AI notetakers and meeting summarisers used by third parties carry the same confidentiality, data-protection and IP risks as the consortium’s own AI tools under the ERA living guidelines, so ask partners to tell you before bringing an AI agent into a call"],
+1:["<b>Enforce the internal deadlines and hold the line:</b> firm coordination in the last month keeps every partner within the Commission’s guidelines and the proposal on target","<b>Treat your first submission as a safety net</b> and the final one as the polish: the Portal is overwhelmed on deadline day"]};
+const coFor=m=>CO[m]||[];
+const GNC=[
+{t:"1. Project idea alignment with the topic text",r:["Proposal idea “kind of fits” but requires stretching interpretation","Expected impacts cannot be convincingly addressed"],y:"Fix to align with the scope, expected outcomes and impacts",g:["Proposal idea fits very well to the scope and expected outcomes","All expected impacts can be convincingly addressed"]},
+{t:"2. Novelty of the research idea",r:["Incremental or vague improvements","TRL levels lower/higher than expected in the topic","No differentiation from existing projects"],y:"Fix to show the novelty and to align with the TRL levels mentioned in the topic",g:["It is easy to show how the project goes beyond the state of the art","The TRL levels (start – end) comply with the topic requirements","The project is clearly novel compared to previously funded projects"]},
+{t:"3. Coordinator’s expertise and capacity to coordinate",r:["Coordinator has not published in the exact topic, only adjacent fields","Coordinator currently lacks sufficient readiness or support to take on a coordination role"],y:"Fix coordinator leadership and topic expertise (e.g. add supporting PI roles)",g:["Coordinator has high-impact publications or citation evidence relevant to the topic","Coordinator has led or is well-positioned to step into coordinating large research projects"]},
+{t:"4. Consortium commitment and expertise",r:["Key partners are non-responsive or provide only superficial input","Consortium is missing critical expertise"],y:"Fix critical expertise gaps by inviting new partners (NB! This requires time)",g:["Key partners are responsive and provide high-quality input in time","Consortium has all the required expertise and roles in place"]},
+{t:"5. Coordination resources",r:["There are not enough research personnel involved in the preparation (PI works alone)","There are no or not enough support services involved"],y:"Fix coordination resourcing (avoid single-person dependency)",g:["Coordinator (PI) is not working alone but has a team of researchers and/or experts","There is support from the administration (Finance, Research services, Research data services…)"]},
+{t:"6. Proposal readiness",r:["There is not enough time reserved to prepare a high-quality proposal","The concept is not fixed, and core questions are not solved","There is not a clear timeline or check-points or shared responsibilities"],y:"Fix process, timeline and responsibilities",g:["There is enough time reserved to prepare a high-quality proposal","There is a clear understanding on the overall aim and concept among participants","There is clear timeline and shared responsibilities","There is a clear proposal writing and iteration process"]}];
+let GD={};try{GD=JSON.parse(localStorage.getItem("p2gn")||"{}")}catch(e){GD={}}
+const gnGet=i=>(GD[callId]||[])[i]||"";
+const gnCount=v=>GNC.filter((_,i)=>gnGet(i)===v).length;
+const gnFor=m=>m!==6?[]:GNC.flatMap((c,i)=>{const v=gnGet(i);return v==="r"||v==="y"?["<b>Readiness check · "+c.t.replace(/^\d\. /,"")+" ("+(v==="r"?"critical weakness":"fixable gap")+"):</b> "+c.y]:[]}).concat(gnCount("r")>=2?["<b>Readiness check meeting:</b> several criteria show critical weaknesses, so decide with your grants office whether the issues can be fixed in time or whether to stop"]:[]);
+function renderGn(){
+ if(!D){$("gnp").innerHTML="";return}
+ const d6=minus(D,6),late=d6<today,n=GNC.filter((_,i)=>gnGet(i)).length,R=gnCount("r"),Y=gnCount("y");
+ let v;
+ if(n<6)v=["Rate all six criteria to get a recommendation ("+n+" of 6 done).","var(--muted)"];
+ else if(R>=2)v=["Not ready: several critical weaknesses. Unless they can be resolved within the available time and resources, consider stopping the preparation.","#d6336c"];
+ else if(R===1)v=["Caution: one critical weakness. Resolve it before investing more effort and set a check-point date.","#c99a00"];
+ else if(Y>0)v=["Ready, with fixes: the fixes are added to your 6-month to-dos.","var(--warn)"];
+ else v=["Ready: no weaknesses flagged.","#1f9e89"];
+ GV=v[0];const opt=(i,lv,name,body)=>`<label class="gopt ${lv}${gnGet(i)===lv?" on":""}"><input type="radio" name="gn${i}" data-gn="${i}" value="${lv}"${gnGet(i)===lv?" checked":""}><b>${name}</b>${body}</label>`;
+ const ul=a=>"<ul>"+a.map(x=>"<li>"+x+"</li>").join("")+"</ul>";
+ $("gnp").innerHTML=`<div class="olh"><b>Step 0 · Readiness check before month 6</b><span class="note">Decide by ${fmt(d6)}${late?" (already passed)":""}</span></div>`
+ +GNC.map((c,i)=>`<div class="gc"><h3>${c.t}</h3><div class="gopts">${opt(i,"r","Critical weakness",ul(c.r))}${opt(i,"y","Fixable gap","<div>"+c.y+"</div>")}${opt(i,"g","Strong",ul(c.g))}</div></div>`).join("")
+ +`<div class="gv" style="border-left:4px solid ${v[1]};background:var(--bg)">${v[0]}</div>`;
+}
+const SP=[
+[1,1,"Organise weekly meetings at the same time each week for the whole preparation period"],
+[1,1,"Open the project in the Portal (create the draft proposal in the submission system)"],
+[2,2,"Prepare the templates based on the Portal: download the template attached to your topic and set up the working Part B"],
+[1,3,"Concept drafting: have the one-pager ready by the end of week 3"],
+[1,5,"Consortium building: have at least the core group complete by the end of week 5"],
+[2,5,"Excellence: objectives drafted"],
+[2,5,"Implementation: work package PERT drafted"],
+[4,7,"Excellence: results and methodology drafted, then keep refining ambition, results and methodology until week 10"],
+[5,10,"Implementation: draft tasks, deliverables, risks and Gantt"],
+[4,10,"Proposal drafting: Excellence from week 4, work plan from week 6 and impact from week 8; finish the full draft by week 10"],
+[1,10,"Part A administrative tasks: start in week 1, then complete and shelve them by week 10"],
+[6,8,"Close the consortium by week 8"],
+[8,8,"Hold the impact workshop"],
+[8,10,"Impact: results, expected outcomes, wider impacts and DCE (dissemination, communication, exploitation)"],
+[7,11,"Budget drafting, following the budget workflow"],
+[10,12,"Final proposal and quality control (QC)"],
+[12,12,"First submission"],
+[13,13,"Final submission (deadline week)"]];
+const spM=b=>b<=3?2:b<=7?1:0.5;
+function spFor(m){
+ const wk=k=>{const x=new Date(D);x.setDate(x.getDate()-(13-k)*7);return x},we=k=>k===13?new Date(D):new Date(+wk(k)+6*864e5);
+ return SP.filter(t=>spM(t[1])===m).map(t=>`<b>${t[0]===t[1]?"Week "+t[0]:"Weeks "+t[0]+"–"+t[1]}</b> (${t[0]===13&&t[1]===13?fmt(D):fmt(wk(t[0]))+" to "+fmt(we(t[1]))}): ${t[2]}.`)}
+let KEYS=[],GV="",DL=null;
+const plain=h=>String(h).replace(/<a href="([^"]+)"[^>]*>(.*?)<\/a>/g,"$2 ($1)").replace(/<\/(div|li|p|label)>/g,"\n").replace(/<br>/g,"\n").replace(/<[^>]+>/g,"").replace(/&amp;/g,"&").replace(/&lt;/g,"<").replace(/&gt;/g,">").replace(/[ \t]+\n/g,"\n").trim();
+function planData(){
+ const dates=MS.map(x=>minus(D,x.m));
+ return MS.map((x,i)=>{
+  const gs=[],add=(n,arr,ix)=>{if(arr.length)gs.push({n,t:arr.map((t,j)=>({t:plain(t),d:!!checks[key(x.m,ix,j)]}))})};
+  add("Readiness check follow-up",gnFor(x.m),"G");
+  add("Proposal template: sections to draft",tplFor(x.m),6);
+  add("12-week sprint",spFor(x.m),"S");
+  add("Coordination playbook",coFor(x.m),"C");
+  add("Budget workflow",budgetFor(x.m),7);
+  add("Eligibility, sanctions and templates",rulesFor(x.m),8);
+  add("Specific to this call",tipsFor(x.m),9);
+  x.g.forEach((g,gi)=>add(GN[gi],g,gi));
+  return{x,date:dates[i],gs}})}
+function docBlocks(){
+ const P=planData(),dates=MS.map(x=>minus(D,x.m)),B=[];
+ const H=(k,t)=>B.push([k,t]),p=t=>B.push(["p",t]),li=(t,d)=>B.push(["li",t,d]),bu=t=>B.push(["bu",t]);
+ H("h1","Horizon Europe proposal plan");
+ p("Call: "+(cur.l||"Custom deadline"));
+ p("Deadline: "+fmtL(D)+" (17:00 Brussels time)");
+ if(cur.o)p("Call opens: "+fmt(new Date(cur.o+"T12:00:00")));
+ p("Exported: "+fmt(today));
+ if(cur.t){H("h2","Call summary");p(plain(cur.t)+(cur.n?" "+plain(cur.n):""))}
+ const tl=plain(topicLinks(cur));
+ if(tl){H("h2","Topic descriptions on the Portal");tl.replace(/^[^:]*:\s*/,"").split(" · ").forEach(x=>bu(x.replace(/\.$/,"")))}
+ H("h2","Key dates");KEYS.forEach(e=>bu(fmt(e.d)+": "+e.l));
+ H("h2","Submission outlook");
+ plain(outlook(dates)).replace(/Open it/,"").split(/\n+/).filter(Boolean).forEach(p);
+ H("h2","Readiness check");
+ const lab={r:"Critical weakness",y:"Fixable gap",g:"Strong"};
+ GNC.forEach((c,i)=>bu(c.t+": "+(lab[gnGet(i)]||"not rated")));
+ if(GV)p("Result: "+GV);
+ H("h2","Plan by milestone");
+ P.forEach(q=>{const v=stat(q.x);H("h3",MS_LABEL(q.x.m)+" before deadline · "+q.x.t+" · by "+fmtL(q.date));p("Progress: "+v[0]+" of "+v[1]+" tasks done");q.gs.forEach(g=>{H("h4",g.n);g.t.forEach(t=>li(t.t.replace(/\n/g," "),t.d))})});
+ return B}
+const san=t=>String(t).replace(/[‘’]/g,"'").replace(/[“”]/g,'"').replace(/[–—]/g,"-").replace(/…/g,"...").replace(/≈/g,"~").replace(/→/g,"->").replace(/≥/g,">=").replace(/≤/g,"<=").replace(/€/g,"EUR ").replace(/[^\x0A\x20-\x7E\xA0-\xFF]/g,"?").replace(/(\S{70})(?=\S)/g,"$1 ");
+function toPDF(){
+ const doc=new window.jspdf.jsPDF({unit:"pt",format:"a4"}),M=48,mw=595-2*M,B=docBlocks();let y=M;
+ const room=h=>{if(y+h>842-M){doc.addPage();y=M}};
+ const put=(t,sz,st,ind,col)=>{doc.setFont("helvetica",st);doc.setFontSize(sz);doc.setTextColor(col[0],col[1],col[2]);doc.splitTextToSize(san(t),mw-ind).forEach(l=>{room(sz*1.4);doc.text(l,M+ind,y+sz);y+=sz*1.4})};
+ const ink=[30,26,34],pur=[78,0,142];
+ B.forEach(b=>{const k=b[0];
+  if(k==="h1"){put(b[1],20,"bold",0,pur);y+=6}
+  else if(k==="h2"){y+=10;put(b[1],14,"bold",0,pur);y+=2}
+  else if(k==="h3"){y+=12;put(b[1],12,"bold",0,[55,0,101]);y+=2}
+  else if(k==="h4"){y+=4;put(b[1],10,"bold",0,pur)}
+  else if(k==="bu"){put("- "+b[1],10,"normal",8,ink)}
+  else if(k==="li"){room(16);const y0=y;put(b[1],10,"normal",16,ink);doc.setDrawColor(78,0,142);doc.setLineWidth(.6);doc.rect(M,y0+2,9,9);if(b[2]){doc.setLineWidth(1.4);doc.line(M+2,y0+6,M+4,y0+9);doc.line(M+4,y0+9,M+8,y0+3)}y+=2}
+  else put(b[1],10,"normal",0,ink)});
+ return doc.output("arraybuffer")}
+function docxBody(B){
+ const esc=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/[\x00-\x08\x0B\x0C\x0E-\x1F]/g,"");
+ const R=(t,o={})=>`<w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri"/>${o.b?"<w:b/>":""}${o.c?`<w:color w:val="${o.c}"/>`:""}<w:sz w:val="${o.sz||21}"/></w:rPr><w:t xml:space="preserve">${esc(t)}</w:t></w:r>`;
+ const Pp=(r,sp,ind)=>`<w:p><w:pPr><w:spacing w:before="${sp[0]}" w:after="${sp[1]}"/>${ind?`<w:ind w:left="${ind[0]}" w:hanging="${ind[1]}"/>`:""}</w:pPr>${r}</w:p>`;
+ return B.map(b=>{const k=b[0],t=b[1];
+  if(k==="h1")return Pp(R(t,{b:1,c:"4E008E",sz:40}),[0,160]);
+  if(k==="h2")return Pp(R(t,{b:1,c:"4E008E",sz:28}),[280,100]);
+  if(k==="h3")return Pp(R(t,{b:1,c:"370065",sz:24}),[240,80]);
+  if(k==="h4")return Pp(R(t,{b:1,c:"4E008E",sz:21}),[120,40]);
+  if(k==="bu")return Pp(R("\u2022 "+t),[0,40],[360,240]);
+  if(k==="li")return Pp(R(b[2]?"\u2611 ":"\u2610 ",{c:"4E008E"})+R(t),[0,40],[360,360]);
+  return Pp(R(t),[0,80])}).join("")}
+function toDOCX(){
+ const X='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>',z=new window.JSZip();
+ z.file("[Content_Types].xml",X+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>');
+ z.file("_rels/.rels",X+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>');
+ z.file("word/document.xml",X+'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+docxBody(docBlocks())+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="708" w:footer="708" w:gutter="0"/></w:sectPr></w:body></w:document>');
+ return z.generateAsync({type:"blob"})}
+async function dlSave(kind){
+ const msg=$("dlmsg");msg.textContent="";
+ if(!DL)return;
+ if(!D){msg.textContent="Pick a deadline first.";return}
+ const slug=(cur.l||"custom").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,50);
+ try{
+  let data;
+  if(kind==="pdf"){if(!window.jspdf){msg.textContent="The PDF tool did not load. Reload the page and try again.";return}data=toPDF()}
+  else{if(!window.JSZip){msg.textContent="The Word tool did not load. Reload the page and try again.";return}data=await toDOCX()}
+  await DL.save({filename:"horizon-plan-"+slug+(kind==="pdf"?".pdf":".docx"),data});msg.textContent="Saved."
+ }catch(e){msg.textContent=e&&e.code?(e.code==="declined"?"":"The file could not be saved here ("+e.code+")."):"The file could not be created."}
+}
+function indexPage(){
+ return `<div class="note"><a href="#plan">← Back to the planner</a></div><h2>All call pages</h2><div class="note">Every Horizon Europe call with a 2027 deadline that this planner covers.</div>`+G.map(g=>`<div class="panel"><h3>${g[0]}</h3><ul>${g[1].map(c=>`<li><a href="#call-${c.id}">${c.l}</a> · deadline ${fmt(new Date(c.d+"T12:00:00"))}</li>`).join("")}</ul></div>`).join("")}
+function callPage(id){
+ const c=CALLS.find(x=>x.id===id);if(!c)return indexPage();
+ const sv={cur,D,callId};cur=c;callId=c.id;D=new Date(c.d+"T12:00:00");
+ try{
+  const gname=G.find(g=>g[1].indexOf(c)>=0)[0],st=stg(c),n2=NX[c.id]&&CALLS.find(x=>x.id===NX[c.id]),days=Math.round((D-today)/864e5);
+  const dt=x=>fmt(new Date(x+"T12:00:00"));
+  const kv=[["Programme part",gname],["Format",st===1?"Two-stage call, stage 1":st===2?"Two-stage call, stage 2 (invited consortia only)":"Single-stage call"],["Call opens",c.o?dt(c.o):"Already open, or see the Portal"],["Deadline",fmtL(D)+", 17:00 Brussels time"],["Time left",days>0?days+" days":days===0?"The deadline is today":"The deadline has passed"]];
+  if(st===1){kv.push(["Stage 1 results","about "+fmt(minus(D,-3))]);if(n2)kv.push(["Stage 2 deadline (if invited)",dt(n2.d)])}
+  else kv.push(["Evaluation results","about "+fmt(minus(D,-5))],["Grant agreement signature","about "+fmt(minus(D,-8))]);
+  const el=[6,5,4,2,1,0.5].flatMap(m=>rulesFor(m));
+  const sp=[...(c.tp||[]).flatMap(n=>TS[n]||[]),...(c.k||[])].sort((a,b)=>b[0]-a[0]);
+  const li=a=>"<li>"+a+"</li>";
+  return `<div class="note"><a href="#plan">← Back to the planner</a> · <a href="#calls">All call pages</a></div>
+<h2>${c.l}</h2><div class="note">${gname}</div>
+<div class="panel"><div class="kv">${kv.map(r=>`<b>${r[0]}</b><span>${r[1]}</span>`).join("")}</div><button class="b" data-plan="${c.id}">Plan this call</button></div>
+<div class="panel"><h3>Description</h3><p>${c.t}</p>${c.n?`<p><i>${c.n}</i></p>`:""}<p>${topicLinks(c)||"No topic codes are stored for this call: search the Portal for the call name."}</p><div class="note">This is a summary compiled from the 2026–2027 work programme and agency announcements. The binding wording, including the full scope, expected outcomes and conditions, is the topic text on the Portal.</div></div>
+<div class="panel"><h3>Eligibility, admissibility and rules</h3><ul>${el.map(li).join("")}</ul></div>
+${sp.length?`<div class="panel"><h3>Call-specific requirements and recommendations</h3><ul>${sp.map(a=>li("<b>"+MS_LABEL(a[0])+" before:</b> "+a[1])).join("")}</ul></div>`:""}
+<div class="panel"><h3>Templates and official documents</h3><ul>${li(A(LNK.ria,"Part B template, RIA/IA form"))}${li(A(LNK.ga,"Work programme General Annexes (eligibility, admissibility, evaluation)"))}${li(A(LNK.pt,"EU Funding & Tenders Portal"))}</ul><div class="note">Use the template attached to your own topic on the Portal: it is the authoritative version.</div></div>
+<div class="panel"><h3>Timeline to the deadline</h3><ul>${MS.map(x=>li("<b>"+MS_LABEL(x.m)+" before:</b> "+fmtL(minus(D,x.m))+" · "+x.t)).join("")}</ul></div>`
+ }finally{cur=sv.cur;D=sv.D;callId=sv.callId}
+}
+function route(){
+ const h=location.hash.slice(1),pg=$("callpage"),pl=$("plan");
+ if(h==="calls"||h.indexOf("call-")===0){pl.style.display="none";pg.style.display="";pg.innerHTML=h==="calls"?indexPage():callPage(h.slice(5));window.scrollTo(0,0)}
+ else{pg.style.display="none";pl.style.display=""}
+}
+let cap=5;
+function markAll(x){const ks=[];x.g.forEach((g,i)=>g.forEach((_,j)=>ks.push(key(x.m,i,j))));tipsFor(x.m).forEach((_,j)=>ks.push(key(x.m,9,j)));rulesFor(x.m).forEach((_,j)=>ks.push(key(x.m,8,j)));budgetFor(x.m).forEach((_,j)=>ks.push(key(x.m,7,j)));tplFor(x.m).forEach((_,j)=>ks.push(key(x.m,6,j)));coFor(x.m).forEach((_,j)=>ks.push(key(x.m,"C",j)));gnFor(x.m).forEach((_,j)=>ks.push(key(x.m,"G",j)));spFor(x.m).forEach((_,j)=>ks.push(key(x.m,"S",j)));const all=ks.every(k=>checks[k]);ks.forEach(k=>{if(all)delete checks[k];else checks[k]=true});save();render()}
+function outlook(dates){
+ const n=MS.map(x=>stat(x)),T=n.reduce((a,v)=>a+v[1],0),d=n.reduce((a,v)=>a+v[0],0);
+ const st=dates.map((x,i)=>i?dates[i-1]:new Date(+dates[0]-30*864e5));
+ let E=0;n.forEach((v,i)=>{E+=v[1]*Math.min(1,Math.max(0,(today-st[i])/(dates[i]-st[i])))});
+ const behind=Math.max(0,E-d),R=T-d,L=Math.round((D-today)/864e5);
+ let dayAt=today;
+ if(behind>=1){let c=0;for(let i=0;i<MS.length;i++){if(d<=c+n[i][1]){dayAt=new Date(+st[i]+(n[i][1]?(d-c)/n[i][1]:0)*(dates[i]-st[i]));break}c+=n[i][1]}}
+ const late=Math.max(0,Math.round((today-dayAt)/864e5));
+ const ecap=cap*0.7*Math.pow(0.85,gnCount("r"))*Math.pow(0.95,gnCount("y")),need=(R+1.5*behind)/(Math.max(L,0.5)/7),rho=need/ecap;
+ let reqDays=0;n.forEach((v,i)=>{reqDays+=(v[1]?1-v[0]/v[1]:0)*((dates[i]-st[i])/864e5)*0.5});
+ const rho2=reqDays/Math.max(L,0.5);
+ const P=[[0.5,95],[0.8,85],[1,70],[1.25,50],[1.5,32],[2,15],[3,5],[5,1]];
+ const f=r=>{if(r<=P[0][0])return P[0][1];if(r>=5)return 1;let k=1;while(r>P[k][0])k++;const a=P[k-1],b=P[k];return a[1]+(b[1]-a[1])*(r-a[0])/(b[0]-a[0])};
+ const p1=f(rho),p2=f(rho2),lim=p2<p1?"calendar time":"workload";
+ let pr=R===0?100:L<0?1:Math.min(p1,p2,80+17*d/T);
+ pr=Math.round(pr);
+ const band=pr>=100?["All tasks done","var(--ok)"]:pr>=75?["On track","var(--ok)"]:pr>=50?["Slightly behind","var(--warn)"]:pr>=25?["At risk","#ea580c"]:["Critical","#dc2626"];
+ let od=-1;MS.forEach((x,i)=>{if(od<0&&dates[i]<today&&n[i][0]<n[i][1])od=i});
+ return `<div class="olb"><div class="ol-t"><b style="color:${band[1]};font-size:1.05rem">${band[0]}</b><div class="olrow"><div class="gauge"><i style="width:${pr}%;background:${band[1]}"></i></div><div class="pct" style="color:${band[1]}">${pr}%</div></div><div class="note">likelihood of a successful submission</div></div></div>`;
+}
+function marker(dates){
+ let after=-1,pos=-0.4,label="You are here · "+fmt(today);
+ if(D<today){after=6;pos=6.5;label="Deadline has passed"}
+ else if(today>=dates[0]){let k=0;dates.forEach((d,i)=>{if(d<=today)k=i});after=k;
+  pos=k===6?6+0.45*Math.min(1,(today-dates[6])/((D-dates[6])||1)):k+(today-dates[k])/(dates[k+1]-dates[k])}
+ return{after,pos,label,row:`<div class="todayrow">▸ ${label}</div>`}
+}
+function pinHTML(m){
+ const x=(m.pos+0.5)/7*100,sh=m.pos>5.4?-92:m.pos<0.6?-8:-50;
+ return `<div class="pinfill" style="width:${Math.min(6,Math.max(0,m.pos))/7*100}%"></div><div class="pin" style="left:${x}%"><span style="transform:translateX(${sh}%)">${m.label}</span></div>`+(m.after===-1?m.row:"")
+}
+function render(){
+ if(!D){$("gnp").innerHTML="";$("ol").innerHTML="Select a deadline to see your outlook.";$("keys").innerHTML="";$("tl").innerHTML="";$("detail").innerHTML="<p>Choose a call or enter a deadline to see your timeline.</p>";$("dl").textContent="No deadline selected";$("left").style.display="none";return}
+ $("left").style.display="";
+ const days=Math.round((D-today)/864e5);
+ $("dl").textContent=fmtL(D);
+ $("left").textContent=days>0?days+" days left":days===0?"Deadline is today":"Deadline passed";
+ $("left").className="chip"+(days<30?" warn":"");
+ $("ov").textContent=days<180&&days>0?"Less than 6 months left: earlier milestones are already behind you.":"";
+ const dates=MS.map(x=>minus(D,x.m));
+const E=[],add=(d,l,c)=>E.push({d,l,c}),dd=n=>{const x=new Date(D);x.setDate(x.getDate()+n);return x},st=stg(cur),n2=NX[cur.id]&&CALLS.find(x=>x.id===NX[cur.id]);
+ if(cur.o)add(new Date(cur.o+"T12:00:00"),"Call opens");
+ (EV[cur.id[0]]||[]).forEach(e=>add(new Date(e[0]+"T12:00:00"),e[1]));
+ add(minus(D,6),"Readiness check due");add(dd(-21),"Internal sign-off");
+ add(D,st===1?"Stage 1 deadline, 17:00 Brussels":"Call deadline, 17:00 Brussels","dl");
+ if(st===1)add(minus(D,-3),"Stage 1 results (~3 months)");
+ if(n2)add(new Date(n2.d+"T12:00:00"),"Stage 2 deadline (if invited)","dl");
+ else{add(minus(D,-5),"Results (~5 months)");add(minus(D,-8),"Grant signature (~8 months)")}
+ E.sort((a,b)=>a.d-b.d);KEYS=E;
+ $("keys").innerHTML=E.map(e=>`<div class="k${e.d<today?" past":""}${e.c?" "+e.c:""}"><b>${fmt(e.d)}</b>${e.l}</div>`).join("");
+ const nowIdx=(()=>{let k=-1;dates.forEach((d,i)=>{if(d<=today)k=i});return k})();
+ const mk=marker(dates);$("ol").innerHTML=outlook(dates);renderGn();$("tl").innerHTML=pinHTML(mk)+MS.map((x,i)=>{
+  const [d,t]=stat(x),past=dates[i]<today;
+  return `<button class="node${i===sel?" sel":""}${past?" past":""}${i===nowIdx&&days>0?" now":""}${past&&d<t?" late":""}" data-i="${i}" role="tab" aria-selected="${i===sel}">
+   <span class="dot">${x.m===0.5?"½":x.m}</span>
+   <span><span class="nm">${MS_LABEL(x.m)} before</span><br><span class="nd">${fmt(dates[i])}</span></span>
+   <span class="np">${d}/${t}</span></button>`+(i===mk.after?mk.row:"")}).join("");
+ const x=MS[sel],[d,t]=stat(x);
+ let h=`<h2>${MS_LABEL(x.m)} before deadline · ${x.t}</h2><div class="when">By ${fmtL(dates[sel])}${dates[sel]<today?" (date has passed)":""}${cur.o&&dates[sel]<new Date(cur.o+"T12:00:00")?" · before the call opens: draft now, submit once it is open":""}</div>
+  <div class="bar"><i style="width:${t?d/t*100:0}%"></i></div><div class="note" style="margin-top:-8px">${d} of ${t} tasks done</div>`;
+ const gf=gnFor(x.m);
+ if(gf.length){h+=`<div class="grp" style="color:var(--accent)">Readiness check follow-up</div>`;gf.forEach((t,j)=>{const k=key(x.m,"G",j),c=!!checks[k];h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${k}"${c?" checked":""}><span>${t}</span></label>`})}
+ const tg=tplFor(x.m);
+ if(tg.length){h+=`<div class="grp" style="color:var(--accent)">Proposal template: sections to draft now</div>`;tg.forEach((t,j)=>{const k=key(x.m,6,j),c=!!checks[k];h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${k}"${c?" checked":""}><span>${t}</span></label>`})}
+ const sp=spFor(x.m);
+ if(sp.length){h+=`<div class="grp" style="color:var(--accent)">12-week sprint <span class="note" style="text-transform:none;letter-spacing:0">(weeks counted back from the deadline; week 13 is the deadline week)</span></div>`;sp.forEach((t,j)=>{const k=key(x.m,"S",j),c=!!checks[k];h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${k}"${c?" checked":""}><span>${t}</span></label>`})}
+ const co=coFor(x.m);
+ if(co.length){h+=`<div class="grp" style="color:var(--accent)">Coordination playbook </div>`;co.forEach((t,j)=>{const k=key(x.m,"C",j),c=!!checks[k];h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${k}"${c?" checked":""}><span>${t}</span></label>`})}
+ const bg=budgetFor(x.m);
+ if(bg.length){h+=`<div class="grp" style="color:var(--accent)">Budget workflow (coordinator)</div>`;bg.forEach((t,j)=>{const k=key(x.m,7,j),c=!!checks[k];h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${k}"${c?" checked":""}><span>${t}</span></label>`})}
+ const rl=rulesFor(x.m);
+ if(rl.length){h+=`<div class="grp" style="color:var(--accent)">Eligibility, sanctions &amp; templates</div>`;rl.forEach((t,j)=>{const k=key(x.m,8,j),c=!!checks[k];h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${k}"${c?" checked":""}><span>${t}</span></label>`})}
+ const tp=tipsFor(x.m);
+ if(tp.length){h+=`<div class="grp" style="color:var(--accent)">Specific to this call</div>`;tp.forEach((t,j)=>{const k=key(x.m,9,j),c=!!checks[k];h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${k}"${c?" checked":""}><span>${t}</span></label>`})}
+ x.g.forEach((g,i)=>{h+=`<div class="grp">${GN[i]}</div>`;
+  g.forEach((s,j)=>{const c=!!checks[key(x.m,i,j)];
+   h+=`<label class="task${c?" done":""}" style="margin:0;color:inherit;font-size:1rem"><input type="checkbox" data-k="${key(x.m,i,j)}"${c?" checked":""}><span>${s}</span></label>`})});
+ h+=`<div class="nav"><button class="b" id="prev"${sel===0?" disabled":""}>← Earlier</button><button class="b" id="markall">${d===t?"Clear all":"Mark all done"}</button><button class="b" id="next"${sel===MS.length-1?" disabled":""}>Later →</button></div>`;
+ $("detail").innerHTML=h;
+}
+function setCall(){
+ cur=CALLS.concat([CU]).find(x=>x.id===$("call").value);callId=cur.id;
+ if(cur.id==="custom"){const v=$("cdate").value;D=v?new Date(v+"T12:00:00"):null}
+ else{D=new Date(cur.d+"T12:00:00");$("cdate").value=cur.d}
+ $("cnote").innerHTML=(cur.o?"<b>Opens "+fmt(new Date(cur.o+"T12:00:00"))+".</b> ":"")+cur.t+(cur.n?" <i>"+cur.n+"</i>":"")+(topicLinks(cur)?"<br>"+topicLinks(cur):"")+(cur.id!=="custom"?"<br><a href=\"#call-"+cur.id+"\">Open the full call page</a>":"");
+ if(D)pickDefault();
+ render();
+}
+$("call").innerHTML=G.map(g=>`<optgroup label="${g[0]}">${g[1].map(c=>`<option value="${c.id}">${c.l} — ${fmt(new Date(c.d+"T12:00:00"))}</option>`).join("")}</optgroup>`).join("")+`<option value="custom">Custom deadline…</option>`;
+$("call").onchange=setCall;
+$("cdate").onchange=()=>{$("call").value="custom";setCall()};
+$("tl").onclick=e=>{const n=e.target.closest(".node");if(n){sel=+n.dataset.i;render()}};
+$("detail").onclick=e=>{
+ if(e.target.id==="prev"){sel--;render()}
+ else if(e.target.id==="next"){sel++;render()}
+ else if(e.target.id==="markall"){markAll(MS[sel])}
+};
+$("detail").onchange=e=>{const k=e.target.dataset.k;if(k){checks[k]=e.target.checked;if(!e.target.checked)delete checks[k];save();render()}};
+$("gnp").onchange=e=>{const i=e.target.dataset.gn;if(i!==undefined){(GD[callId]=GD[callId]||[])[+i]=e.target.value;try{localStorage.setItem("p2gn",JSON.stringify(GD))}catch(x){}render()}};
+
+$("ol").onclick=e=>{const g=e.target.dataset.go;if(g!==undefined){sel=+g;render()}};
+$("dlpdf").onclick=()=>dlSave("pdf");$("dldoc").onclick=()=>dlSave("docx");
+try{(window.claude?claude.use("downloads"):Promise.resolve(null)).then(d=>{if(d){DL=d;$("dlbar").classList.add("on")}}).catch(()=>{})}catch(e){}
+window.addEventListener("hashchange",route);
+$("callpage").onclick=e=>{const b=e.target.closest("[data-plan]");if(b){$("call").value=b.dataset.plan;setCall();location.hash="plan"}};
+setCall();route();
+</script>
+</body>
+</html>
